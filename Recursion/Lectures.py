@@ -6,6 +6,7 @@
 #
 # nums = [int(x) for x in input().split()]
 # print(sum_array(nums, 0))
+
 """find factorials with recursion"""
 # def calc_fact(n):
 #     if n == 1:
@@ -13,3 +14,14 @@
 #     return n * calc_fact(n-1)
 # num = int(input())
 # print (calc_fact(num))
+
+"""drawing figure with recursion"""
+# def draw_figure(n):
+#     if n == 0:
+#         return
+#     print("*" * n)
+#     draw_figure(n-1)
+#     print("$" * n)
+#
+# n = int(input())
+# draw_figure(n)
