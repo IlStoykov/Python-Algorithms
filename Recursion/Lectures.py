@@ -1,4 +1,4 @@
-"""sum of list wint nums with recursion"""
+"""sum of list with nums with recursion"""
 # def sum_array(nums, index):
 #     if index == len(nums)-1:
 #         return nums[index]
