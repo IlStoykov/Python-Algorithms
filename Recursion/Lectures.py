@@ -25,6 +25,7 @@
 #
 # n = int(input())
 # draw_figure(n)
+
 """reverse a string with recursion"""
 # def reverse(string):
 #     if len(string) == 0:
