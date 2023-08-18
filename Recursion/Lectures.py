@@ -34,3 +34,16 @@
 #         return reverse(string[1:]) + string[0]
 # a = str(input("Enter the string to be reversed: "))
 # print(reverse(a))
+"""counting and reverse counting with recursion"""
+# def clac(n, start, result = 0):
+#     if n == 0:
+#         print (result)
+#         return
+#     start += 1
+#     result += start
+#     print (result)
+#     clac(n - 1, start, result)
+#     result -= start
+#     print (result)
+# n = int(input())
+# clac(n, 0)
