@@ -48,3 +48,17 @@
 #     print (result)
 # n = int(input())
 # clac(n, 0)
+
+"""finding possible combinations with recursion"""
+def find_combinations(ind, vector):
+    if (ind >= len(vector)):
+        print(*vector, sep="")
+        return
+    for i in range(3):
+        vector[ind] = i
+        find_combinations(ind + 1, vector)
+
+
+n = int(input())
+vector = [None] * n
+find_combinations(0, vector)
