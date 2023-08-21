@@ -50,15 +50,45 @@
 # clac(n, 0)
 
 """finding possible combinations with recursion"""
-def find_combinations(ind, vector):
-    if (ind >= len(vector)):
-        print(*vector, sep="")
+# def find_combinations(ind, vector):
+#     if (ind >= len(vector)):
+#         print(*vector, sep="")
+#         return
+#     for i in range(3):
+#         vector[ind] = i
+#         find_combinations(ind + 1, vector)
+#
+# n = int(input())
+# vector = [None] * n
+# find_combinations(0, vector)
+
+""""finding the way out with backtracking"""
+def find_exit(row, col, lab, destination, path):
+    if row < 0 or col < 0 or row >= len(lab) or col >= len(lab[0]):
         return
-    for i in range(3):
-        vector[ind] = i
-        find_combinations(ind + 1, vector)
+    if lab[row][col] == "*":
+        return
+    if lab[row][col] == "v":
+        return
+    path.append(destination)
+    if lab[row][col] == "e":
+        print("".join(path))
 
+    else:
 
-n = int(input())
-vector = [None] * n
-find_combinations(0, vector)
+        lab[row][col] = "v"
+
+        find_exit(row - 1, col, lab, "U", path)
+        find_exit(row + 1, col, lab, "D", path)
+        find_exit(row, col - 1, lab, "L", path)
+        find_exit(row, col + 1, lab, "R", path)
+        lab[row][col] = "-"
+    path.pop()
+
+rows = int(input())
+cols = int(input())
+lab = []
+for _ in range(rows):
+    lab.append(list(input()))
+
+find_exit(0, 0, lab, "", [])
