@@ -94,11 +94,9 @@
 # find_exit(0, 0, lab, "", [])
 
 """ 8 Queens"""
-
-
 def print_board(board):
     for row in board:
-        print(" ".join(board))
+        print(" ".join(row))
     print()
 
 def check_queen(row, col, rows, cols, left_diagonals, right_diagonals):
@@ -112,10 +110,19 @@ def check_queen(row, col, rows, cols, left_diagonals, right_diagonals):
         return False
     return True
 
+def set_queen(row, col, board, rows, cols, left_diagonals, right_diagonals):
+    board[row][col] = "Q"
+    rows.add(row)
+    cols.add(col)
+    left_diagonals.add(row - col)
+    right_diagonals.add(row + col)
 
-def set_queen(row, col, rows, cols, left_diagonals, right_diagonals):
-    pass
-
+def remove_queen(row, col, board, rows, cols, left_diagonals, right_diagonals):
+    board[row][col] = "-"
+    rows.remove(row)
+    cols.remove(col)
+    left_diagonals.remove(row - col)
+    right_diagonals.remove(row + col)
 
 def put_queen(row, board, rows, cols, left_diagonals, right_diagonals):
     if row == 8:
@@ -123,8 +130,11 @@ def put_queen(row, board, rows, cols, left_diagonals, right_diagonals):
         return
     for col in range(8):
         if check_queen(row, col, rows, cols, left_diagonals, right_diagonals):
-            set_queen(row, col, rows, cols, left_diagonals, right_diagonals)
+            set_queen(row, col, board, rows, cols, left_diagonals, right_diagonals)
+            put_queen(row + 1, board, rows, cols, left_diagonals, right_diagonals)
+            remove_queen(row, col, board, rows, cols, left_diagonals, right_diagonals)
+
 n = 8
 board = []
-[board.append("-" * 8) for _ in range(8)]
-put_queen(row, board, set(), set(), set(), set())
+[board.append(["-"] * 8) for _ in range(8)]
+put_queen(0, board, set(), set(), set(), set())
