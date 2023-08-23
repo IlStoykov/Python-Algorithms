@@ -20,18 +20,65 @@
 # nested_loop(0, vector, itr)
 
 """3.	Move Down / Right - count all possible paths"""
-def find_all_paths(row, col, rows, cols):
-    if row >= rows or col >= cols:
-        return 0
-    if row == rows - 1 and col == cols - 1:
-        return 1
-    result = 0
-    result += find_all_paths(row + 1, col, rows, cols)
-    result += find_all_paths(row, col + 1, rows, cols)
+# def find_all_paths(row, col, rows, cols):
+#     if row >= rows or col >= cols:
+#         return 0
+#     if row == rows - 1 and col == cols - 1:
+#         return 1
+#     result = 0
+#     result += find_all_paths(row + 1, col, rows, cols)
+#     result += find_all_paths(row, col + 1, rows, cols)
+#
+#     return result
+#
+# rows = int(input())
+# cols = int(input())
+#
+# print(find_all_paths(0, 0, rows, cols))
 
-    return result
+"""4. Connected Areas in a Matrix - count all elements in 3D array"""
 
-rows = int(input())
-cols = int(input())
+# class Area():
+#     def __init__(self, c_row, c_col, c_size):
+#         self.c_row = c_row
+#         self.c_col = c_col
+#         self.c_size = c_size
+#
+# def explore_matrix(row, col, matrix):
+#     if row < 0 or col < 0 or row >= len(matrix) or col >= len(matrix[0]):
+#         return 0
+#     if matrix[row][col] != "-":
+#         return 0
+#
+#     matrix[row][col] = "v"
+#
+#     result = 1
+#     result += explore_matrix(row - 1, col, matrix)
+#     result += explore_matrix(row + 1, col, matrix)
+#     result += explore_matrix(row, col - 1, matrix)
+#     result += explore_matrix(row, col + 1, matrix)
+#     return result
+#
+# rows = int(input())
+# cols = int(input())
+# matrix = []
+# for _ in range(rows):
+#     matrix.append(list(input()))
+#
+#
+# arias = []
+# for row in range(rows):
+#     for col in range(cols):
+#         size = explore_matrix(row, col, matrix)
+#         if size == 0:
+#             continue
+#         else:
+#             arias.append(Area(row, col, size))
+#
+# print(f"Total areas found: {len(arias)}")
+# for idx, inventory in enumerate(sorted(arias, key = lambda x:x.c_size, reverse=True)):
+#     print(f"Area #{idx + 1} at ({inventory.c_row}, {inventory.c_col}), size: {inventory.c_size}")
 
-print(find_all_paths(0, 0, rows, cols))
+
+
+
