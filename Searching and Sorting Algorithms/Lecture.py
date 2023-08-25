@@ -49,3 +49,19 @@
 # target_num = int(input())
 #
 # print(binary_search(nums, target_num))
+
+"""Selection Sort"""
+def selct_sort(nums):
+    for idx in range(len(nums)):
+        first_number = nums[idx]
+        first_index = idx
+        for next_idx in range(idx + 1, len(nums)):
+            next_number = nums[next_idx]
+            if next_number < first_number:
+                first_number = next_number
+                first_index = next_idx
+                nums[idx], nums[next_idx] = nums[next_idx], nums[idx]
+    return nums
+
+nums = [int(x) for x in input().split()]
+print(selct_sort(nums))
