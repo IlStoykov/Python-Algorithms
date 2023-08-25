@@ -80,42 +80,45 @@
 #     print(f"Area #{idx + 1} at ({inventory.c_row}, {inventory.c_col}), size: {inventory.c_size}")
 
 """5.	Word Cruncher"""
-# entr = input().split(", ")
-# example = input()
-#
-# word_by_idx = {}
-# count_word = {}
-#
-# for word in entr:
-#     if word in count_word:
-#         count_word[word] += 1
-#     else:
-#         count_word[word] = 1
-#     try:
-#         idx = 0
-#         while True:
-#             idx = example.index(word, idx)
-#             if idx not in word_by_idx:
-#                 word_by_idx[idx] = []
-#             word_by_idx[idx].append(word)
-#             idx += len(word)
-#     except ValueError:
-#         pass
-#
-# def find_all_solutions(idx, example, word_by_idx, count_word, used_word):
-#     if idx >= len(example):
-#         print(" ".join(used_word))
-#         return
-#     if idx not in word_by_idx:
-#         return
-#
-#     for word in word_by_idx[idx]:
-#         used_word.append(word)
-#         count_word[word] -= 1
-#
-#         find_all_solutions(idx + len(word), example, word_by_idx, count_word, used_word)
-#
-#         used_word.pop()
-#         count_word[word] += 1
-# 
-# find_all_solutions(0, example, word_by_idx, count_word, [])
+entr = input().split(", ")
+example = input()
+
+word_by_idx = {}
+count_word = {}
+
+for word in entr:
+    if word in count_word:
+        count_word[word] += 1
+        continue
+    count_word[word] = 1
+    try:
+        idx = 0
+        while True:
+            idx = example.index(word, idx)
+            if idx not in word_by_idx:
+                word_by_idx[idx] = []
+            word_by_idx[idx].append(word)
+            idx += len(word)
+    except ValueError:
+        pass
+
+def find_all_solutions(idx, example, word_by_idx, count_word, used_word):
+    if idx >= len(example):
+        print(" ".join(used_word))
+        return
+    if idx not in word_by_idx:
+        return
+
+    for word in word_by_idx[idx]:
+        if count_word[word] == 0:
+            continue
+        used_word.append(word)
+        count_word[word] -= 1
+
+        find_all_solutions(idx + len(word), example, word_by_idx, count_word, used_word)
+
+        used_word.pop()
+        count_word[word] += 1
+
+find_all_solutions(0, example, word_by_idx, count_word, [])
+
