@@ -27,6 +27,7 @@
 
 # print(binary_search(nums, target_num))
 
+"""Binary Search"""
 # def binary_search(nums, target_num):
 #     left_index = 0
 #     right_index = len(nums) - 1
@@ -51,17 +52,32 @@
 # print(binary_search(nums, target_num))
 
 """Selection Sort"""
-def selct_sort(nums):
-    for idx in range(len(nums)):
-        first_number = nums[idx]
-        first_index = idx
-        for next_idx in range(idx + 1, len(nums)):
-            next_number = nums[next_idx]
-            if next_number < first_number:
-                first_number = next_number
-                first_index = next_idx
-                nums[idx], nums[next_idx] = nums[next_idx], nums[idx]
-    return nums
+# def selct_sort(nums):
+#     for idx in range(len(nums)):
+#         first_number = nums[idx]
+#         first_index = idx
+#         for next_idx in range(idx + 1, len(nums)):
+#             next_number = nums[next_idx]
+#             if next_number < first_number:
+#                 first_number = next_number
+#                 first_index = next_idx
+#                 nums[idx], nums[next_idx] = nums[next_idx], nums[idx]
+#     return nums
+#
+# nums = [int(x) for x in input().split()]
+# print(selct_sort(nums))
 
+"""Bubble Sort"""
+def bubble_sort(nums):
+    counter = 0
+    is_sorted = False
+    while not is_sorted:
+        is_sorted = True
+        for j in range(1, len(nums) - counter):
+            if nums[j] < nums[j - 1]:
+                nums[j], nums[j - 1] = nums[j - 1], nums[j]
+                is_sorted = False
+        counter += 1
+    return nums
 nums = [int(x) for x in input().split()]
-print(selct_sort(nums))
+print(*bubble_sort(nums), sep=" ")
