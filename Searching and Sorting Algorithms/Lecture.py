@@ -120,3 +120,44 @@ Then, it recursively applies the same process to the left and right sub-arrays u
 # nums = [int(x) for x in input().split()]
 # quicksort_funk(0, len(nums) -1, nums)
 # print(*nums, sep = " ")
+
+"""Merge Sort"""
+def merge_arrs(left_arr, right_arr):
+    result = [None] * (len(left_arr) + len(right_arr))
+    left_index = 0
+    right_index = 0
+    result_index = 0
+
+    while left_index < len(left_arr) and right_index < len(right_arr):
+        if left_arr[left_index] < right_arr[right_index]:
+            result[result_index] = left_arr[left_index]
+            left_index += 1
+        else:
+            result[result_index] = right_arr[right_index]
+            right_index += 1
+        result_index += 1
+
+    while left_index < len(left_arr):
+        result[result_index] = left_arr[left_index]
+        left_index += 1
+        result_index += 1
+
+    while right_index < len(right_arr):
+        result[result_index] = right_arr[right_index]
+        right_index += 1
+        result_index += 1
+
+    return  result
+
+def merge_sort(nums):
+    if len(nums) == 1:
+        return nums
+    mid_index = len(nums) // 2
+    left_arr = nums[:mid_index]
+    right_arr = nums[mid_index:]
+
+    return merge_arrs(merge_sort(left_arr),merge_sort(right_arr))
+
+nums = [int(x) for x in input().split()]
+result = merge_sort(nums)
+print(*result, sep=" ")
