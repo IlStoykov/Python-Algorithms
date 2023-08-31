@@ -79,3 +79,30 @@
 # visited = []
 # for node in graph:
 #     bfs(node, graph, visited)
+
+"""Connected Components - DFS"""
+# def dfs(node, visited, graph, component):
+#     if node in visited:
+#         return
+#     visited.append(node)
+#
+#     for child in graph[node]:
+#         dfs(child, visited, graph, component)
+#
+#     component.append(node)
+#
+# graph = []
+# nodes = int(input())
+# for node in range(nodes):
+#     line = input()
+#     child = [] if line == "" else [int(x) for x in line.split()]
+#     graph.append(child)
+#
+# visited = []
+#
+# for node in range(nodes):
+#     if node in visited:
+#         continue
+#     component = []
+#     dfs(node, visited, graph, component)
+#     print(f"Connected component: {' '.join([str(x) for x in component])}")
