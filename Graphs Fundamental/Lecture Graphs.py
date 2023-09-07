@@ -155,3 +155,34 @@
 #     print("Invalid topological sorting")
 # else:
 #     print(f"Topological sorting: {', '.join([str(x) for x in result])}")
+
+"""Ordering Graph with cycle detection"""
+def dfs(node, graph, visited, cycle, result):
+
+    if node in cycle:
+        print("Invalid topological sorting")
+        return
+    if node in visited:
+        return
+    cycle.add(node)
+    visited.add(node)
+    result.append(node)
+    for child in graph[node]:
+        dfs(child, graph, visited, cycle, result)
+
+    cycle.remove(node)
+
+    return result
+graph = {}
+round = int(input())
+cycle = set()
+visited = set()
+result = []
+for _ in range(round):
+    line = input().split("->")
+    node = line[0].strip()
+    children = [str(x) for x in line[1].strip().split(", ")] if line[1] else []
+    graph[node] = children
+for node in graph:
+    dfs(node, graph, visited, cycle, result)
+print(result)
