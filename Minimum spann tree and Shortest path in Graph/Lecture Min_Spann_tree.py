@@ -99,51 +99,89 @@
 
 
 """3.	Bellman-Ford"""
-from collections import deque
+# from collections import deque
+# class Edges:
+#     def __init__(self, source, destination, weight):
+#         self.source = source
+#         self.destination = destination
+#         self.weight = weight
+#
+# nodes = int(input())
+# edges = int(input())
+#
+# graph = []
+#
+# for _ in range(edges):
+#     source, destination, weight = [int(x) for x in input().split(" ")]
+#     graph.append(Edges(source, destination, weight))
+#
+# start = int(input())
+# target = int(input())
+#
+# distance = [float('inf')] * (nodes + 1)
+# distance[start] = 0
+# parent = [None] * (nodes + 1)
+#
+# for _ in range(nodes - 1):
+#     updated = False
+#     for edges in graph:
+#         if distance[edges.source] == float('inf'):
+#             continue
+#         new_distance = distance[edges.source] + edges.weight
+#         if new_distance < distance[edges.destination]:
+#             distance[edges.destination] = new_distance
+#             parent[edges.destination] = edges.source
+#             updated = True
+#     if not updated:
+#         break
+# for edges in graph:
+#     new_distance = distance[edges.source] + edges.weight
+#     if new_distance < distance[edges.destination]:
+#         print('Negative Cycle Detected')
+#         break
+# else:
+#     path = deque()
+#     node = target
+#     while node is not None:
+#         path.appendleft(node)
+#         node = parent[node]
+#     print(*path, sep=" ")
+#     print(distance[target])
+
+"""4.	Kruskal’s Algorithm"""
 class Edges:
-    def __init__(self, source, destination, weight):
-        self.source = source
-        self.destination = destination
+    def __init__(self, first, second, weight):
+        self.first = first
+        self.second = second
         self.weight = weight
 
-nodes = int(input())
-edges = int(input())
+def find_root(parent, node):
+    while node != parent[node]:
+        node = parent[node]
+    else:
+        return node
 
 graph = []
+edges = int(input())
 
+max_node = float("-inf")
+#define graph with classes and find max num for node
 for _ in range(edges):
-    source, destination, weight = [int(x) for x in input().split(" ")]
-    graph.append(Edges(source, destination, weight))
+    first, second, weight = [int(x) for x in input().split(", ")]
+    graph.append(Edges(first, second, weight))
+    max_node = max(first, second, max_node)
 
-start = int(input())
-target = int(input())
+parent = [num for num in range(max_node + 1)]
+forest = []
 
-distance = [float('inf')] * (nodes + 1)
-distance[start] = 0
-parent = [None] * (nodes + 1)
-
-for _ in range(nodes - 1):
-    updated = False
-    for edges in graph:
-        if distance[edges.source] == float('inf'):
-            continue
-        new_distance = distance[edges.source] + edges.weight
-        if new_distance < distance[edges.destination]:
-            distance[edges.destination] = new_distance
-            parent[edges.destination] = edges.source
-            updated = True
-    if not updated:
-        break
-for edges in graph:
-    new_distance = distance[edges.source] + edges.weight
-    if new_distance < distance[edges.destination]:
-        print('Negative Cycle Detected')
-        break
-else:
-    path = deque()
-    node = target
-    while node is not None:
-        path.appendleft(node)
-        node = parent[node]
-    print(*path, sep=" ")
-    print(distance[target])
+#work with sorted array
+for edge in sorted(graph, key=lambda x:x.weight):
+    # find root for first and second node
+    first_node_root = find_root(parent, edge.first)
+    second_node_root = find_root(parent, edge.second)
+    if first_node_root != second_node_root:
+        #merge first with the second node and become a part of the same tree
+        parent[first_node_root] = second_node_root
+        forest.append(edge)
+for edge in forest:
+    print(f"{edge.first} - {edge.second}")
