@@ -149,39 +149,103 @@
 #     print(distance[target])
 
 """4.	Kruskal’s Algorithm"""
+# class Edges:
+#     def __init__(self, first, second, weight):
+#         self.first = first
+#         self.second = second
+#         self.weight = weight
+#
+# def find_root(parent, node):
+#     while node != parent[node]:
+#         node = parent[node]
+#     else:
+#         return node
+#
+# graph = []
+# edges = int(input())
+#
+# max_node = float("-inf")
+# #define graph with classes and find max num for node
+# for _ in range(edges):
+#     first, second, weight = [int(x) for x in input().split(", ")]
+#     graph.append(Edges(first, second, weight))
+#     max_node = max(first, second, max_node)
+#
+# parent = [num for num in range(max_node + 1)]
+# forest = []
+#
+# #work with sorted array
+# for edge in sorted(graph, key=lambda x:x.weight):
+#     # find root for first and second node
+#     first_node_root = find_root(parent, edge.first)
+#     second_node_root = find_root(parent, edge.second)
+#     if first_node_root != second_node_root:
+#         #merge first with the second node and become a part of the same tree
+#         parent[first_node_root] = second_node_root
+#         forest.append(edge)
+# for edge in forest:
+#     print(f"{edge.first} - {edge.second}")
+
+"""5.	Prim's Algorithm"""
+from queue import PriorityQueue
 class Edges:
     def __init__(self, first, second, weight):
         self.first = first
         self.second = second
         self.weight = weight
+    #sorting edges by value
+    def __gt__(self, other):
+        return self.weight < other.weight
+def prim(node, graph, forest, forrest_edges):
+    #1. add the node to spann forest
+    forest.add(node)
+    #2. adding SORTED edges to priority queue
+    pq = PriorityQueue()
+    #3. put all edges in pq sorted ascending
+    for edge in graph[node]:
+        pq.put(edge)
 
-def find_root(parent, node):
-    while node != parent[node]:
-        node = parent[node]
-    else:
-        return node
+    #4. getting all edges from the queue and check if one node in forest and other not
+    while not pq.empty():
+        #get the smallest el
+        min_edge = pq.get()
+        non_tree_node = -1
+        if min_edge.first in forest and min_edge.second not in forest:
+            non_tree_node = min_edge.second
+        elif min_edge.second in forest and min_edge.second not in forest:
+            non_tree_node = min_edge.first
+        # if could not find a node out of the forest - continue
+        if non_tree_node == -1:
+            continue
+        # else add non_tree_node to forest and all elements of non-tree_node add to pq and add forrest_edges to forrest_edges
+        # because it is a part for min span tree
+        forest.add(non_tree_node)
+        forrest_edges.append(min_edge)
+        for edge in graph[non_tree_node]:
+            pq.put(edge)
 
-graph = []
+graph = {}
 edges = int(input())
-
-max_node = float("-inf")
-#define graph with classes and find max num for node
 for _ in range(edges):
+    # forming graph with dictionary and adding all edges in keys of graph
     first, second, weight = [int(x) for x in input().split(", ")]
-    graph.append(Edges(first, second, weight))
-    max_node = max(first, second, max_node)
+    if first not in graph:
+        graph[first] = []
+    elif second not in graph:
+        graph[second] = []
+    edge = Edges(first, second, weight)
+    graph[first].append(edge)
+    graph[second].append(edge)
 
-parent = [num for num in range(max_node + 1)]
-forest = []
+""""collect all passed nodes"""
+forest = set()
+forrest_edges = []
 
-#work with sorted array
-for edge in sorted(graph, key=lambda x:x.weight):
-    # find root for first and second node
-    first_node_root = find_root(parent, edge.first)
-    second_node_root = find_root(parent, edge.second)
-    if first_node_root != second_node_root:
-        #merge first with the second node and become a part of the same tree
-        parent[first_node_root] = second_node_root
-        forest.append(edge)
-for edge in forest:
+# running Prim`s algorythm
+
+for node in graph:
+    if node in forest:
+        continue
+    prim(node, graph, forest, forrest_edges)
+for edge in forrest_edges:
     print(f"{edge.first} - {edge.second}")
